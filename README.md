@@ -9,7 +9,7 @@ I needed a large set of images to serve as training data for ML projects. Howeve
 
 # Features 
 - [x] Scrape images
-- [x] Save designers into to CSV
+- [x] Save listing designers to CSV
 - [x] Use Grailed api to resize images
 - [ ] Efficient enough to save over 6k images in reasonable time
 
