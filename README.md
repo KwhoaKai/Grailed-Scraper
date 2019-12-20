@@ -1,6 +1,6 @@
 # Grailed-Scraper - WIP
 Scrape images from listings on Grailed.com.
-I've included an example image dataset of six thousand vintage sweaters.
+I've included an [example image dataset of six thousand images](https://github.com/KwhoaKai/Grailed-Scraper/blob/master/6k-Sweaters.zip) scraped from the search term "vintage sweaters".
 
 [Selenium](https://selenium-python.readthedocs.io/installation.html) and [chromedriver](https://chromedriver.chromium.org/downloads) required
 
