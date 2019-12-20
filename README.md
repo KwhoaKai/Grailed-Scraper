@@ -11,7 +11,7 @@ I needed a large set of images to serve as training data for ML projects. Howeve
 - [x] Scrape images
 - [x] Save designers into to CSV
 - [x] Use Grailed api to resize images
-- [] Efficient enough to save over 6k images in reasonable time
+- [ ] Efficient enough to save over 6k images in reasonable time
 
 # Todo 
 - General optimizations to increase efficiency
