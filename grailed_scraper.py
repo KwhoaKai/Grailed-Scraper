@@ -11,15 +11,20 @@ from PIL import Image
 import pandas as pd
 import os
 from urllib.error import HTTPError
-import sys
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument("search", help="Query to find listings on Grailed.com")
+parser.add_argument(
+    "-w", "--width", help="Set the width of downloaded images", type=int
+)
+parser.add_argument(
+    "-h", "--height", help="Set the height of downloaded images", type=int
+)
+parser.add_argument("-n", "--num", help="Number of images desired", type=int)
+
 
 # Scrape images from Grailed query with optional image width/height parameters
-
-# TODO
-#  - Better way of tracking seen items, i.e only track the last download
-#  - Find optimal scroll length
-#  - CLI
-
 webdriver = "chromedriver"
 chrome_options = Options()
 driver = Chrome(webdriver, options=chrome_options)
@@ -47,7 +52,7 @@ try:
         EC.presence_of_element_located((By.CLASS_NAME, "listing-cover-photo"))
     )
 except TimeoutException:
-    print("Loading took too much time!")
+    print("No photos found this search")
 
 # Target image number
 target = 10000
@@ -55,10 +60,7 @@ img_width = 200
 # lastFeedItem = None
 count = 0
 all_designers = []
-
-# Hashmap to prevent redownload
 seen = {}
-
 SCROLL_PAUSE_TIME = 0.5
 
 # Get scroll height
@@ -67,11 +69,7 @@ last_height = driver.execute_script("return document.body.scrollHeight")
 while count <= target:
     # Scroll down to bottom
     driver.execute_script("window.scrollTo(0, " + str(last_height) + ");")
-
-    # Wait to load page
     time.sleep(SCROLL_PAUSE_TIME)
-
-    # Add images to count
     listings = driver.find_elements_by_class_name("feed-item")
     listings.reverse()
 
