@@ -38,8 +38,8 @@ Chromedriver can be buggy sometimes. If it isn't scrolling, try running the scri
 
 
 ## Todo 
-- General optimizations to increase efficiency
-- Find optimal scroll length, this value is currently hardcoded
+- General optimizations to increase efficiency (Better way to track previously visited listings)
+- Find optimal scroll length for lazy loading, this value is currently hardcoded
 
 ### Disclaimer
 The acceptable use policy for Grailed.com [doesn't officially allow for web scrapers.](https://www.grailed.com/acceptable) Please use at your own discretion, for non-nefarious purposes. Thanks!
