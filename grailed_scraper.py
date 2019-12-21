@@ -13,16 +13,25 @@ import os
 from urllib.error import HTTPError
 import argparse
 
+# Handle arguments
 parser = argparse.ArgumentParser()
 parser.add_argument("search", help="Query to find listings on Grailed.com")
 parser.add_argument(
-    "-w", "--width", help="Set the width of downloaded images", type=int
+    "-w", "--width", help="Set the width of downloaded images", type=int, default=0
 )
 parser.add_argument(
-    "-h", "--height", help="Set the height of downloaded images", type=int
+    "-he", "--height", help="Set the height of downloaded images", type=int, default=0
 )
-parser.add_argument("-n", "--num", help="Number of images desired", type=int)
+parser.add_argument("-n", "--num", help="Number of images desired", type=int, default=0)
+args = parser.parse_args()
 
+search_term = args.search
+img_width = args.width if args.width > 0 else None
+img_height = args.height if args.height > 0 else None
+target = args.num if args.num > 0 else 1000
+
+# Welcome :)
+print("Hi there! " + str(target) + " " + search_term + "s coming right up <3")
 
 # Scrape images from Grailed query with optional image width/height parameters
 webdriver = "chromedriver"
@@ -30,12 +39,11 @@ chrome_options = Options()
 driver = Chrome(webdriver, options=chrome_options)
 url = "https://www.grailed.com/"
 driver.get(url)
-inputBox = driver.find_element_by_id("globalheader_search")
-search_term = "vintage sweaters"
+input_box = driver.find_element_by_id("globalheader_search")
 
 # Search Grailed
-inputBox.send_keys(search_term)
-inputBox.send_keys(Keys.RETURN)
+input_box.send_keys(search_term)
+input_box.send_keys(Keys.RETURN)
 
 # Error if search bar not found after 10 seconds
 try:
@@ -52,12 +60,8 @@ try:
         EC.presence_of_element_located((By.CLASS_NAME, "listing-cover-photo"))
     )
 except TimeoutException:
-    print("No photos found this search")
+    print("No listings showed up after 10 seconds!")
 
-# Target image number
-target = 10000
-img_width = 200
-# lastFeedItem = None
 count = 0
 all_designers = []
 seen = {}
@@ -80,37 +84,65 @@ while count <= target:
             img = listing.find_element_by_tag_name("img")
             url = img.get_attribute("src")
 
-            currDesigner = listing.find_element_by_xpath(
-                "//p[contains(@class, 'listing-designer') and contains(@class, 'truncate')]"
-            ).text
-            currDate = listing.find_element_by_xpath("//span[@class = 'date-ago']").text
-            currTitle = listing.find_element_by_class_name("listing-title").text
+            curr_designer = listing.find_element_by_class_name("listing-designer").text
+            curr_date = listing.find_element_by_class_name("date-ago").text
+            curr_title = listing.find_element_by_class_name("listing-title").text
 
-            if currTitle in seen:
-                if seen[currTitle] == currDate:
+            print(curr_date + " " + curr_designer)
+            print(last_height)
+
+            if curr_title in seen:
+                if seen[curr_title] == curr_date:
+                    print("seen" + curr_title)
                     break
 
             else:
-                seen[currTitle] = currDate
+                seen[curr_title] = curr_date
 
                 # Use url parameters to download at preferred width
                 idx_width = url.index("width")
                 idx_height = url.index("height")
-                new_url = url[: idx_width + 6] + str(img_width) + url[idx_height + 10 :]
+
+                if (img_height == None) & (img_width == None):
+                    new_url = url[: idx_width + 6] + "200" + url[idx_height + 10 :]
+
+                elif (img_height == None) & (img_width != None):
+                    new_url = (
+                        url[: idx_width + 6] + str(img_width) + url[idx_height + 10 :]
+                    )
+
+                elif (img_height != None) & (img_width == None):
+                    new_url = (
+                        url[:idx_width]
+                        + "height:"
+                        + str(img_height)
+                        + url[idx_height + 10 :]
+                    )
+
+                elif (img_height != None) & (img_width != None):
+                    new_url = (
+                        url[: idx_width + 6]
+                        + str(img_width)
+                        + ","
+                        + "height:"
+                        + str(img_height)
+                        + url[idx_height + 10 :]
+                    )
 
                 try:
                     urllib.request.urlretrieve(new_url, str(count) + ".jpg")
-                    all_designers.append(currDesigner)
+                    all_designers.append(curr_designer)
                     count += 1
 
                 except HTTPError as err:
-                    print("src threw http error")
+                    print("url threw http error")
 
+    # Hard-coded for now
     last_height += 1100
     print("downloads: " + str(count) + " feed-items: " + str(len(listings)))
 
 
-# Save feed-item designer info
+# Save feed-item designer info to csv
 df = pd.DataFrame(all_designers, columns=["Designer"])
 df.to_csv("designers.csv")
 driver.close()
