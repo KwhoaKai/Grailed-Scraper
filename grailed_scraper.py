@@ -88,12 +88,9 @@ while count <= target:
             curr_date = listing.find_element_by_class_name("date-ago").text
             curr_title = listing.find_element_by_class_name("listing-title").text
 
-            print(curr_date + " " + curr_designer)
-            print(last_height)
-
             if curr_title in seen:
                 if seen[curr_title] == curr_date:
-                    print("seen" + curr_title)
+                    # print("seen" + curr_title)
                     break
 
             else:
@@ -135,11 +132,11 @@ while count <= target:
                     count += 1
 
                 except HTTPError as err:
-                    print("url threw http error")
+                    print("Image url threw an http error")
 
     # Hard-coded for now
     last_height += 1100
-    print("downloads: " + str(count) + " feed-items: " + str(len(listings)))
+    # print("downloads: " + str(count) + " feed-items: " + str(len(listings)))
 
 
 # Save feed-item designer info to csv
