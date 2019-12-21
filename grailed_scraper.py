@@ -7,7 +7,6 @@ from selenium.webdriver.common.keys import Keys
 import time
 from time import sleep
 import urllib.request
-from PIL import Image
 import pandas as pd
 import os
 from urllib.error import HTTPError
@@ -68,11 +67,11 @@ seen = {}
 SCROLL_PAUSE_TIME = 0.5
 
 # Get scroll height
-last_height = driver.execute_script("return document.body.scrollHeight")
+height_diff = driver.execute_script("return document.body.scrollHeight")
 
 while count <= target:
     # Scroll down to bottom
-    driver.execute_script("window.scrollTo(0, " + str(last_height) + ");")
+    driver.execute_script("window.scrollTo(0, " + str(height_diff) + ");")
     time.sleep(SCROLL_PAUSE_TIME)
     listings = driver.find_elements_by_class_name("feed-item")
     listings.reverse()
@@ -134,10 +133,9 @@ while count <= target:
                 except HTTPError as err:
                     print("Image url threw an http error")
 
-    # Hard-coded for now
-    last_height += 1100
+    # Distance to scroll
+    height_diff += 1100
     # print("downloads: " + str(count) + " feed-items: " + str(len(listings)))
-
 
 # Save feed-item designer info to csv
 df = pd.DataFrame(all_designers, columns=["Designer"])
