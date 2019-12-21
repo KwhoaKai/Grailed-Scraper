@@ -10,10 +10,37 @@ I needed a large set of images to serve as training data for ML projects. Howeve
 ## Features 
 - [x] Scrape images
 - [x] Save listing designers to CSV
-- [x] Use Grailed api to resize images
+- [x] Resizable images
 - [ ] Efficient enough to save over 6k images in reasonable time
+
+
+## How do I use this?
+The script works by entering a query into the search bar on the home page of Grailed, then scrolling down until the target number of images is reached. The search argument is required. Make sure to quote your query if it contains a space, ex: "vintage sweater".
+
+Though Grailed's api isn't public, we can still change the parameters in the url to download the images at whatever dimensions we want! 
+Arguments for image width and image height are optional. If one dimension is specified, the other dimension will be whatever is required to maintain the aspect ratio. Otherwise, both arguments are used. Be aware, the image may be cropped to whatever size you specifiy. If neither dimension is specified, width is set to 200 and height is set to maintain image ratio.
+
+Finally, there is an optional argument specifying the target number of images to download, with the default set to 1000.
+
+Optional arguments:
+```
+--num, -n: # Number of images to scrape
+--width, -w: # Set image width, defaults to 200
+--height, -he, # Set image height
+```
+
+Search for "vintage sweater" and download 500 listing photos with a width of 100px
+```
+python grailed_scraper.py "vintage sweater" --num 500 --width 100
+```
+
+Chromedriver can be buggy sometimes. If it isn't scrolling, try running the script again.
+
 
 ## Todo 
 - General optimizations to increase efficiency
 - Find optimal scroll length, this value is currently hardcoded
-- CLI
+
+### Disclaimer
+The acceptable use policy for Grailed.com [doesn't officially allow for web scrapers.](https://www.grailed.com/acceptable) Please use at your own discretion, for non-nefarious purposes. Thanks!
+
