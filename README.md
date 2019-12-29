@@ -1,6 +1,6 @@
 # Grailed Image Scraper
 Scrape images from listings on Grailed.com. (work in progress)
-I've included an [example image dataset of six thousand images](https://github.com/KwhoaKai/KwhoaKai.github.io/blob/master/6k-Sweaters.zip) scraped from the search term "vintage sweaters".
+Here's an [example image dataset of six thousand images](https://github.com/KwhoaKai/KwhoaKai.github.io/blob/master/6k-Sweaters.zip) scraped from the search term "vintage sweaters".
 
 [Selenium](https://selenium-python.readthedocs.io/installation.html), [chromedriver](https://chromedriver.chromium.org/downloads), and [pandas](https://pandas.pydata.org/pandas-docs/stable/install.html) are required.
 
