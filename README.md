@@ -26,7 +26,7 @@ Optional arguments:
 ```
 --num, -n: # Number of images to scrape
 --width, -w: # Set image width, defaults to 200
---height, -he, # Set image height
+--height, -he: # Set image height
 ```
 
 Search for "vintage sweater" and download 500 listing photos with a width of 100px
