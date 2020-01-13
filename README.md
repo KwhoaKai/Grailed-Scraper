@@ -2,7 +2,6 @@
 
 <p align="center">
   <img height="500" src="grailscroll.gif">  
-  <p align="center">some sweaters</p>
 </p>
 
   
