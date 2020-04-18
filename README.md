@@ -6,7 +6,7 @@
 
   
 
-Scrape images from listings on Grailed.com. (work in progress)
+Scrape images from listings on Grailed.com.
 Here's an [example image dataset of six thousand images](https://github.com/KwhoaKai/KwhoaKai.github.io/blob/master/6k-Sweaters.zip) scraped from the search term "vintage sweaters".
 
 Required:  
