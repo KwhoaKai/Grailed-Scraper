@@ -6,8 +6,8 @@
 
 
 
-Scrape images from listings on Grailed.com.
-Here's an [example image dataset of six thousand images](https://github.com/KwhoaKai/KwhoaKai.github.io/blob/master/6k-Sweaters.zip) scraped from the search term "vintage sweaters".
+Scrape images from listings on Grailed.com.   
+Here's an [example image dataset of six thousand images](https://drive.google.com/drive/u/2/folders/1_HIElEmf1BSbjtuHu7VF2NTbPd9VEGFE) scraped from the search term "vintage sweaters".
 
 ## Required:  
 [Selenium](https://selenium-python.readthedocs.io/installation.html): Python framework for web testing.  
