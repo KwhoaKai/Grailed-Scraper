@@ -4,12 +4,12 @@
   <img height="500" src="grailscroll.gif">  
 </p>
 
-  
+
 
 Scrape images from listings on Grailed.com.
 Here's an [example image dataset of six thousand images](https://github.com/KwhoaKai/KwhoaKai.github.io/blob/master/6k-Sweaters.zip) scraped from the search term "vintage sweaters".
 
-Required:  
+## Required:  
 [Selenium](https://selenium-python.readthedocs.io/installation.html): Python framework for web testing.  
 [chromedriver](https://chromedriver.chromium.org/downloads): Used for web automation and scrolling.  
 [pandas](https://pandas.pydata.org/pandas-docs/stable/install.html): Store listing metadata in dataframe and send to CSV.  
