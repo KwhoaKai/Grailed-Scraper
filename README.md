@@ -1,7 +1,7 @@
 # Grailed Image Scraper
 
 <p align="center">
-  <img height="500" src="grailscroll.gif">  
+  <img height="500" src="./grailscroll.gif">  
 </p>
 
 
